@@ -40,12 +40,39 @@ public class Trie {
 	public void add(String word){
 		add(root, word);
 	}
-	
-	
-	public boolean patternMatching(ArrayList<String> input, String pattern) {
-		//will be completed soon
-		
+	 private boolean search(TrieNode root, String word){
+		if(word.length() == 0){
+			
+			if(root.isTerminating)return true;
+            else{
+                return false;
+            }
+		}		
+		int childIndex = word.charAt(0) - 'a';
+		TrieNode child = root.children[childIndex];
+		if(child == null){
+			return false;
+		}
+		return search(child, word.substring(1));
 	}
+	
+	public boolean search(String word){
+        return search(root,word);
+    }
+	public boolean patternMatching(ArrayList<String> input, String pattern) {
+		for(int k=0;k<input.size();k++){
+            Trie t=new Trie();
+            String str=input.get(k);
+            t.add(str);
+            int n=str.length();
+             for (int i = 0; i < n; i++) 
+           for (int j = i+1; j < n; j++)
+               t.add(str.substring(j));
+           if(t.search(pattern))return true;
+        }
+		
+	return false;}
+}
 public class Runner {
 
 	static Scanner s = new Scanner(System.in);
