@@ -38,7 +38,9 @@ public class Trie {
 	}
 
 	public void add(String word){
+		while(word.length()!=0){
 		add(root, word);
+		word=word.substring(1);}
 	}
 	 private boolean search(TrieNode root, String word){
 		if(word.length() == 0){
